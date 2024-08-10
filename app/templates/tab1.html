@@ -37,9 +37,13 @@
             <p>都道府県: {{ location.prefecture }}</p>
             <p>市、区: {{ location.city_district }}</p>
             <p>日付: {{ location.date }}</p>
-            <img src={{ location.image }} alt={{ location.title }}>
+            <img src={{ location.image.url }} alt={{ location.title }}>
             <p>説明: {{ location.description }}</p>
             <a href={{ location.external_url }}>詳細はこちら</a>
+            {% comment %} <form method="POST" action="{% url 'delete_data' location.id %}">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+            </form> {% endcomment %}
         </li>
     {% endfor %}
     {% if error %}

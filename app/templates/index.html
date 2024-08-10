@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ローカルウェーブ</title>
+    <title>ごきんじょマップ</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
+
 <body>
     <header>
-        <h1>ローカルウェーブ</h1>
+        <h1>ごきんじょマップ</h1>
     </header>
-    <div class="tabs">
-        <div class="tab-button" onclick="showTab('tab1', event)">タブ1</div>
-        <div class="tab-button" onclick="showTab('tab2', event)">タブ2</div>
-        <div class="tab-button" onclick="showTab('tab3', event)">タブ3</div>
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tab-button" onclick="showTab('tab1', event)">タブ1</div>
+            <div class="tab-button" onclick="showTab('tab2', event)">タブ2</div>
+            <div class="tab-button" onclick="showTab('tab3', event)">タブ3</div>
+        </div>
     </div>
     <div id="tab1" class="tab">
         {% include 'tab1.html' %}

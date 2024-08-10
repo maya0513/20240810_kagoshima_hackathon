@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.utils.datastructures import MultiValueDictKeyError
 
@@ -49,3 +49,11 @@ def register_data(request):
             return render(request, "tab1.html", {"error": "必要な情報が不足しています。"})
     else:
         return redirect("index")  # GETリクエストの場合はインデックスページにリダイレクト
+
+def delete_data(request, location_id):
+    if request.method == "POST":
+        location = get_object_or_404(Location, id=location_id)
+        location.delete()
+        return redirect("index")
+    else:
+        return redirect("index")
