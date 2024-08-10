@@ -7,20 +7,22 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'reset.css' %}">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="{% static 'tab.css' %}">
+    <link rel="stylesheet" href="{% static 'tab1.css' %}">
 </head>
 
 <body>
     <header>
         <h1>ごきんじょマップ</h1>
     </header>
+
     <div class="tabs-container">
         <div class="tabs">
-            <div class="tab-button" onclick="showTab('tab1', event)">タブ1</div>
+            <div class="tab-button" onclick="showTab('tab1', event)">イベント</div>
             <div class="tab-button" onclick="showTab('tab2', event)">タブ2</div>
             <div class="tab-button" onclick="showTab('tab3', event)">タブ3</div>
         </div>
     </div>
+
     <div id="tab1" class="tab">
         {% include 'tab1.html' %}
     </div>
