@@ -1,0 +1,48 @@
+<h2>タブ1の内容</h2>
+<p>ここにタブ1の内容が表示されます。</p>
+
+<!-- モーダルのHTML -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>データ登録フォーム</h2>
+        <form id="dataForm" method="POST" action="{% url 'register_data' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="prefecture">都道府県:</label>
+            <input type="text" id="prefecture" name="prefecture" required>
+            <label for="city_district">市、区:</label>
+            <input type="text" id="city_district" name="city_district" required>
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="date">日付:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="image">画像:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <label for="description">説明文:</label>
+            <textarea id="description" name="description" required></textarea>
+            <label for="external_url">外部URL:</label>
+            <input type="url" id="external_url" name="external_url" required>
+            <button type="submit">登録</button>
+        </form>
+    </div>
+</div>
+
+<button onclick="openModal()">データを登録</button>
+
+<h2>データ一覧</h2>
+<ul>
+    {% for location in locations %}
+        <li>
+            <h3>{{ location.title }}</h3>
+            <p>都道府県: {{ location.prefecture }}</p>
+            <p>市、区: {{ location.city_district }}</p>
+            <p>日付: {{ location.date }}</p>
+            <img src={{ location.image }} alt={{ location.title }}>
+            <p>説明: {{ location.description }}</p>
+            <a href={{ location.external_url }}>詳細はこちら</a>
+        </li>
+    {% endfor %}
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</ul>
