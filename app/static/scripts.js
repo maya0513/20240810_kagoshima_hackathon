@@ -20,20 +20,43 @@ document.addEventListener('DOMContentLoaded', function () {
     showTab('tab1', { currentTarget: document.querySelector('.tab-button') });
 });
 
-
-// tab1
-function openModal() {
-    document.getElementById("modal").style.display = "block";
+function openModal(tabId) {
+    const modal = document.getElementById(tabId + "Modal");
+    console.log("Opening modal for tab:", tabId);
+    console.log("Modal element:", modal);
+    if (modal) {
+        modal.style.display = "block";
+    } else {
+        console.error("Modal not found for tab:", tabId);
+    }
 }
 
-function closeModal() {
-    document.getElementById("modal").style.display = "none";
+function closeModal(tabId) {
+    const modal = document.getElementById(tabId + "Modal");
+    if (modal) {
+        modal.style.display = "none";
+    }
 }
+
 
 // モーダルの外側をクリックしたときに閉じる
 window.onclick = function(event) {
-    const modal = document.getElementById("modal");
-    if (event.target == modal) {
-        closeModal();
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
     }
 }
+
+function initializeModals() {
+    const openButtons = document.querySelectorAll('.open-modal-button');
+    openButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            openModal(tabId);
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    showTab('tab1', { currentTarget: document.querySelector('.tab-button') });
+    initializeModals();
+});

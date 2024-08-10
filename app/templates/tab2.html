@@ -1,11 +1,12 @@
 <div class="open-modal-button-container">
-    <button class="open-modal-button" onclick="openModal()">情報登録</button>
+    {% comment %} <button class="open-modal-button" onclick="openModal('tab2')">情報登録</button> {% endcomment %}
+    <button class="open-modal-button" data-tab="tab2">情報登録</button>
 </div>
 
 <!-- モーダルのHTML -->
-<div id="modal" class="modal">
+<div id="tab2Modal" class="modal">
     <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
+        <span class="close-button" onclick="closeModal('tab2')">&times;</span>
         <h2>迷子/探し物情報登録</h2>
         <form id="lostFoundForm" method="POST" action="{% url 'register_lost_found' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -34,7 +35,7 @@
                 <textarea id="description" name="description" required></textarea>
             </div>
             <div class="form-group">
-                <label for="email">連絡先メールアドレス:</label>
+                <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <button type="submit" class="submit-button">登録</button>
@@ -52,7 +53,7 @@
                     <p>地域: {{ item.prefecture }}/{{ item.city_district }}</p>
                     <p>日付: {{ item.date }}</p>
                     <p>説明: {{ item.description }}</p>
-                    <p>連絡先: {{ item.email }}</p>
+                    <p>Email: {{ item.email }}</p>
                 </div>
                 <div class="image_container">
                     <img src="{{ item.image.url }}" alt="{{ item.title }}">
