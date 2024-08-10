@@ -1,10 +1,12 @@
-<button class="open-modal-button" onclick="openModal()">データを登録</button>
+<div class="open-modal-button-container">
+    <button class="open-modal-button" onclick="openModal()">情報登録</button>
+</div>
 
 <!-- モーダルのHTML -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close-button" onclick="closeModal()">&times;</span>
-        <h2>データ登録フォーム</h2>
+        <h2>情報登録</h2>
         <form id="dataForm" method="POST" action="{% url 'register_data' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -40,7 +42,7 @@
     </div>
 </div>
 
-<h2>イベント一覧</h2>
+<h2>イベント/ニュース一覧</h2>
 <ul class="data-list">
     {% for location in locations %}
         <li class="data-item">

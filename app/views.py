@@ -7,18 +7,21 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 def index(request):
     locations = Location.objects.all()
-    print(f"データの数: {locations.count()}")
-    for loc in locations:
-        print(f"タイトル: {loc.title}")
-    return render(request, "index.html", {"locations": locations})
+    lost_found_items = LostFound.objects.all()
+    # print(f"データの数: {locations.count()}")
+    # for loc in locations:
+    #     print(f"タイトル: {loc.title}")
+    return render(request, "index.html", {"locations": locations, "lost_found_items": lost_found_items})
 
 
 def tab1(request):
-    return render(request, "tab1.html")
-
+    locations = Location.objects.all()
+    return render(request, 'tab1.html', {'locations': locations})
 
 def tab2(request):
-    return render(request, "tab2.html")
+    lost_found_items = LostFound.objects.all()
+    return render(request, 'tab2.html', {'lost_found_items': lost_found_items})
+
 
 
 def tab3(request):
@@ -27,7 +30,6 @@ def tab3(request):
 
 # from django.shortcuts import render
 from .models import Location
-
 
 def register_data(request):
     if request.method == "POST":
@@ -54,6 +56,37 @@ def delete_data(request, location_id):
     if request.method == "POST":
         location = get_object_or_404(Location, id=location_id)
         location.delete()
+        return redirect("index")
+    else:
+        return redirect("index")
+
+
+from .models import LostFound
+
+def register_lost_found(request):
+    if request.method == "POST":
+        try:
+            lost_found = LostFound(
+                prefecture=request.POST["prefecture"],
+                city_district=request.POST["city_district"],
+                title=request.POST["title"],
+                date=request.POST["date"],
+                image=request.FILES["image"],
+                description=request.POST["description"],
+                email=request.POST["email"],
+            )
+            lost_found.save()
+            return redirect("index")
+        except MultiValueDictKeyError as e:
+            print(f"Error: {e}")
+            return render(request, "tab2.html", {"error": "必要な情報が不足しています。"})
+    else:
+        return redirect("index")
+
+def delete_lost_found(request, lost_found_id):
+    if request.method == "POST":
+        lost_found = get_object_or_404(LostFound, id=lost_found_id)
+        lost_found.delete()
         return redirect("index")
     else:
         return redirect("index")
